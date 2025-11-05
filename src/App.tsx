@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import ProblemSolutionSection from './components/ProblemSolutionSection';
-import KeyFeaturesSection from './components/KeyFeaturesSection';
 import HowItWorksSection from './components/HowItWorksSection';
 import Footer from './components/Footer';
 import PeerReviewPage from './components/PeerReviewPage';
@@ -46,7 +45,6 @@ function App() {
         <>
           <HeroSection onNavigateToReview={navigateToReview} />
           <ProblemSolutionSection />
-          <KeyFeaturesSection />
           <HowItWorksSection />
           <div id="about" className="py-10 bg-gradient-to-b from-white to-gray-50">
             <div className="max-w-4xl mx-auto px-6 text-center">
