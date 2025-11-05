@@ -63,16 +63,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigateToReview }) => {
           {/* Stats or Social Proof */}
           <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600 mb-2">10x</div>
-              <div className="text-gray-600">Faster Review Process</div>
+              <div className="text-4xl font-bold text-blue-600 mb-2">Runs On</div>
+              <div className="text-gray-600">Phi3.5</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600 mb-2">High</div>
-              <div className="text-gray-600">Accuracy Rate</div>
+              <div className="text-4xl font-bold text-blue-600 mb-2">Faster</div>
+              <div className="text-gray-600">Reduces Manual Work</div>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">24/7</div>
-              <div className="text-gray-600">Available</div>
+              <div className="text-gray-600">Available*</div>
             </div>
           </div>
         </div>

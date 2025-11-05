@@ -5,7 +5,7 @@ const HowItWorksSection: React.FC = () => {
     {
       number: "01",
       title: "Upload Your Research",
-      description: "Simply drag and drop your research paper PDF. Our system accepts papers in multiple formats and automatically extracts the content for analysis.",
+      description: "Simply drag and drop your research paper PDF. Our system accepts papers in pdf format and automatically extracts the content for analysis.",
       image: "https://blog.researcher.life/wp-content/uploads/2025/06/pexels-yankrukov-8199595-1.jpg",
       gradient: "from-blue-500 to-blue-700",
       bgColor: "bg-blue-50"
@@ -13,7 +13,7 @@ const HowItWorksSection: React.FC = () => {
     {
       number: "02",
       title: "AI Analysis Engine",
-      description: "Our advanced AI performs comprehensive analysis including novelty search, plagiarism detection, factual verification, and citation quality checks simultaneously.",
+      description: "Our advanced AI performs comprehensive analysis including domain classification, summary, strength,weaknesses, and additional comments.",
       image: "https://cdn.getmidnight.com/50062ddd13358c02dea31c6e82a524c5/2023/09/AdobeStock_600314909.jpeg",
       gradient: "from-blue-500 to-blue-700",
       bgColor: "bg-blue-50"
@@ -21,7 +21,7 @@ const HowItWorksSection: React.FC = () => {
     {
       number: "03",
       title: "Professional Review Report",
-      description: "Receive a detailed, structured review report that matches professional peer review standards, complete with actionable feedback and improvement suggestions.",
+      description: "Receive a detailed, structured review report that matches professional peer review standards, complete with improvement suggestions.",
       image: "https://doctorprojects.com/wp-content/uploads/2024/07/Report-Writing-Skills.webp",
       gradient: "from-blue-500 to-blue-700",
       bgColor: "bg-blue-50"

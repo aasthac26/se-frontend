@@ -7,8 +7,6 @@ interface PeerReviewPageProps {
 
 const PeerReviewPage: React.FC<PeerReviewPageProps> = ({ onBackToHome }) => {
   const [file, setFile] = useState<File | null>(null);
-  const [enableDeepSearch, setEnableDeepSearch] = useState(false);
-  const [topic, setTopic] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [results, setResults] = useState<any>(null);
   const [dragOver, setDragOver] = useState(false);
@@ -46,11 +44,9 @@ const PeerReviewPage: React.FC<PeerReviewPageProps> = ({ onBackToHome }) => {
     setIsProcessing(true);
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("deep_search", enableDeepSearch ? "true" : "");
-    formData.append("topic", topic);
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/review", {
+      const response = await fetch("https://se-backend-0uhe.onrender.com/api/review", {
         method: "POST",
         body: formData,
       });
@@ -60,12 +56,29 @@ const PeerReviewPage: React.FC<PeerReviewPageProps> = ({ onBackToHome }) => {
       if (data.error) {
         alert(data.error);
       } else {
+        let parsedReview: any = {};
+
+        // ✅ if backend sends "response" as plain string
+        if (data.response) {
+          // Split by ### headings
+          const sections = data.response.split("###").filter((s: string) => s.trim() !== "");
+          for (const section of sections) {
+            const [title, ...rest] = section.split("\n");
+            parsedReview[title.trim()] = rest.join("\n").trim();
+          }
+        } else if (data.review) {
+          parsedReview = data.review;
+        }
+
         setResults({
-          overallRecommendation: data.review["9. Final Recommendation"] || "Check review.txt",
-          detailedFeedback: Object.keys(data.review).map((key) => ({
+          overallRecommendation:
+            parsedReview["Review Decision Memo"] ||
+            parsedReview["9. Final Recommendation"] ||
+            "Check review.txt",
+          detailedFeedback: Object.keys(parsedReview).map((key) => ({
             category: key,
-            feedback: data.review[key],
-            status: "good"
+            feedback: parsedReview[key],
+            status: "good",
           })),
         });
       }
@@ -146,37 +159,6 @@ const PeerReviewPage: React.FC<PeerReviewPageProps> = ({ onBackToHome }) => {
               </div>
             </div>
 
-            {/* Options */}
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div>
-                <label className="flex items-center space-x-3 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={enableDeepSearch}
-                    onChange={(e) => setEnableDeepSearch(e.target.checked)}
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <div>
-                    <div className="font-semibold text-gray-900">Enable Deep Search</div>
-                    <div className="text-sm text-gray-600">More comprehensive analysis (takes longer time)</div>
-                  </div>
-                </label>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
-                  Research Topic (Optional)
-                </label>
-                <input
-                  type="text"
-                  value={topic}
-                  onChange={(e) => setTopic(e.target.value)}
-                  placeholder="e.g., Machine Learning, Biology"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-
             {/* Run Review Button */}
             <button
               onClick={handleRunReview}
@@ -216,7 +198,7 @@ const PeerReviewPage: React.FC<PeerReviewPageProps> = ({ onBackToHome }) => {
                       <h3 className="text-xl font-semibold text-gray-900">{item.category}</h3>
                     </div>
                   </div>
-                  <p className="text-gray-700 leading-relaxed">{item.feedback}</p>
+                  <p className="text-gray-700 leading-relaxed whitespace-pre-line">{item.feedback}</p>
                 </div>
               ))}
             </div>
